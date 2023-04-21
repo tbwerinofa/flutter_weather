@@ -233,6 +233,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  finishlineinsights_api:
+    dependency: transitive
+    description:
+      path: "packages/finishlineinsights_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   fixnum:
     dependency: transitive
     description:
@@ -363,6 +370,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.6.1"
+  league_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/league_repository"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   logging:
     dependency: transitive
     description:

@@ -18,6 +18,8 @@ dependencies:
   path_provider: ^2.0.8
   weather_repository:
     path: packages/weather_repository
+  league_repository:
+    path: packages/league_repository
 
 dev_dependencies:
   bloc_test: ^9.1.0
