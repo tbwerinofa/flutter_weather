@@ -48,7 +48,7 @@ class _LeagueViewState extends State<LeagueView> {
         child: BlocConsumer<LeagueCubit, LeagueState>(
           listener: (context, state) {
             if (state.status.isSuccess) {
-              context.read<ThemeCubit>().updateTheme(state.league);
+              context.read<LeagueThemeCubit>().updateTheme(state.league);
             }
           },
           builder: (context, state) {

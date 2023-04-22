@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:finishlineinsights_api/src/models/dashboarditem.dart';
+import 'package:finishlineinsights_api/src/models/season.dart';
 import 'package:http/http.dart' as http;
 import 'package:finishlineinsights_api/finishlineinsights_api.dart';
 
@@ -28,10 +30,15 @@ class FinishLineInsightsApiClient {
   Future<League> leagueFetch() async {
     final leagueRequest = Uri.https(
       _baseUrlGeocoding,
-      '/api/leaguerest',
+      '/api/leaguerest/',
     );
 
-    final leagueResponse = await _httpClient.get(leagueRequest);
+    final leagueResponse = await _httpClient.get(leagueRequest, headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,PUT",
+      "Access-Control-Allow-Headers": "X-Requested-With,content-type",
+      "Access-Control-Allow-Credentials": "true"
+    });
 
     if (leagueResponse.statusCode != 200) {
       throw LeagueRequestFailure();
@@ -39,12 +46,47 @@ class FinishLineInsightsApiClient {
 
     final leagueJson = jsonDecode(leagueResponse.body) as Map;
 
+/*
     if (!leagueJson.containsKey('results')) throw LeagueNotFoundFailure();
 
     final results = leagueJson['results'] as List;
 
     if (results.isEmpty) throw LeagueNotFoundFailure();
+    */
 
-    return League.fromJson(results.first as Map<String, dynamic>);
+    var seasonJson = leagueJson['season'];
+
+    List<int> organisationIds = seasonJson['organisationIds']
+        .map<int>((round) => round as int)
+        .toList();
+
+    Season season = Season(
+        id: seasonJson['id'],
+        name: seasonJson['name'],
+        finYearId: seasonJson['finYearId'],
+        provinceId: seasonJson['provinceId'],
+        countryId: seasonJson['countryId'],
+        organisationIds: organisationIds,
+        province: seasonJson['province'],
+        country: seasonJson['country'],
+        organisationTypeId: seasonJson['organisationTypeId'],
+        organisationId: seasonJson['organisationId'],
+        finYear: (seasonJson['finYear']).toString());
+
+    League league = League(
+        totalPrizes: leagueJson['totalPrizes'],
+        season: season,
+        organisationCount: leagueJson['organisationCount'],
+        //seasonPrizes: seasonPrizes,
+        //seasonRules: seasonRules,
+        //weightingFactors: weightingFactors,
+        //seasonRaces: seasonRaces,
+        //seasonDocuments: seasonDocuments,
+        //aggregateLogs: aggregateLogs,
+        documentPath: leagueJson['documentPath']);
+
+    var resultSet = league;
+
+    return resultSet;
   }
 }

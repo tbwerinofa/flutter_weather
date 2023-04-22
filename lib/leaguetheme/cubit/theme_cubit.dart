@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather/league/league.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class ThemeCubit extends HydratedCubit<Color> {
-  ThemeCubit() : super(defaultColor);
+class LeagueThemeCubit extends HydratedCubit<Color> {
+  LeagueThemeCubit() : super(defaultColor);
 
   static const defaultColor = Color(0xFF2196F3);
 

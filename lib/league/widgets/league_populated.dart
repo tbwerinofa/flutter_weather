@@ -30,7 +30,7 @@ class LeaguePopulated extends StatelessWidget {
                   Icon(Icons.navigate_next,
                       color: Color(0xffffcc5c), size: 35.0),
                   Text(
-                    "Latest Result",
+                    league.season.name,
                     style: theme.textTheme.displayMedium?.copyWith(
                       fontWeight: FontWeight.w200,
                     ),

@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:finishlineinsights_api/finishlineinsights_api.dart' hide League;
 import 'package:league_repository/league_repository.dart';
-import 'package:league_repository/src/models/dashboarditem.dart';
 import 'package:league_repository/src/models/season.dart';
-import 'package:league_repository/src/models/seasondocument.dart';
 
 class LeagueRepository {
   LeagueRepository({FinishLineInsightsApiClient? weatherApiClient})
@@ -31,7 +29,7 @@ class LeagueRepository {
         totalPrizes: league.totalPrizes,
         season: season,
         organisationCount: league.organisationCount,
-        seasonPrizes: league.seasonPrizes
+        /*seasonPrizes: league.seasonPrizes
             .map((value) => DashboardItem(
                 id: value.id,
                 finYear: value.finYear,
@@ -227,7 +225,7 @@ class LeagueRepository {
                 documentName: value.documentName,
                 groupId: value.groupId,
                 gender: value.gender))
-            .toList(),
+            .toList(),*/
         documentPath: league.documentPath);
   }
 }

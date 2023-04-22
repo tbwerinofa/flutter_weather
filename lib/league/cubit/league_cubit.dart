@@ -14,14 +14,14 @@ class LeagueCubit extends HydratedCubit<LeagueState> {
 
   Future<void> fetchLeague(String? city) async {
     if (city == null || city.isEmpty) return;
-
+    print('test 1');
     emit(state.copyWith(status: LeagueStatus.loading));
 
     try {
       final league = League.fromRepository(
         await _leagueRepository.getLeague(),
       );
-
+      print('finish');
       emit(
         state.copyWith(
           status: LeagueStatus.success,
@@ -29,17 +29,18 @@ class LeagueCubit extends HydratedCubit<LeagueState> {
             totalPrizes: league.totalPrizes,
             season: league.season,
             organisationCount: league.organisationCount,
-            seasonPrizes: league.seasonPrizes,
+            /*seasonPrizes: league.seasonPrizes,
             seasonRules: league.seasonRules,
             weightingFactors: league.weightingFactors,
             seasonRaces: league.seasonRaces,
             seasonDocuments: league.seasonDocuments,
-            aggregateLogs: league.aggregateLogs,
+            aggregateLogs: league.aggregateLogs,*/
             documentPath: league.documentPath,
           ),
         ),
       );
-    } on Exception {
+    } catch (e) {
+      print(e);
       emit(state.copyWith(status: LeagueStatus.failure));
     }
   }
@@ -59,12 +60,12 @@ class LeagueCubit extends HydratedCubit<LeagueState> {
             totalPrizes: league.totalPrizes,
             season: league.season,
             organisationCount: league.organisationCount,
-            seasonPrizes: league.seasonPrizes,
+            /*seasonPrizes: league.seasonPrizes,
             seasonRules: league.seasonRules,
             weightingFactors: league.weightingFactors,
             seasonRaces: league.seasonRaces,
             seasonDocuments: league.seasonDocuments,
-            aggregateLogs: league.aggregateLogs,
+            aggregateLogs: league.aggregateLogs,*/
             documentPath: league.documentPath,
           ),
         ),
